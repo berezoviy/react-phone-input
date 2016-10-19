@@ -501,6 +501,7 @@ class ReactPhoneInput extends React.Component {
           onKeyDown={this.handleInputKeyDown}
           value={this.state.formattedNumber}
           ref="numberInput"
+          id="phoneNumberInput"
           type="tel"
           className={inputClasses}
         />
