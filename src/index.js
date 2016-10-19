@@ -137,6 +137,9 @@ class ReactPhoneInput extends React.Component {
     let inputNumber = nextProps.value || '';
     let onlyCountries = excludeCountries(getOnlyCountries(nextProps.onlyCountries), nextProps.excludeCountries);
     let selectedCountryGuess = this.guessSelectedCountry(inputNumber.replace(/\D/g, ''), onlyCountries);
+    let selectedCountryGuessIndex = findIndex(allCountries, selectedCountryGuess);
+    let dialCode = selectedCountryGuess && !startsWith(inputNumber.replace(/\D/g, ''), selectedCountryGuess.dialCode) ?
+      selectedCountryGuess.dialCode : '';
     let formattedNumber = this.formatNumber(dialCode + inputNumber.replace(/\D/g, ''), selectedCountryGuess ?
       selectedCountryGuess.format : null);
     if (formattedNumber !== this.state.formattedNumber) {
