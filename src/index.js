@@ -133,6 +133,19 @@ class ReactPhoneInput extends React.Component {
     document.removeEventListener('keydown', this.handleKeydown);
   }
 
+  componentWillReceiveProps(nextProps) {
+    let inputNumber = nextProps.value || '';
+    let onlyCountries = excludeCountries(getOnlyCountries(nextProps.onlyCountries), nextProps.excludeCountries);
+    let selectedCountryGuess = this.guessSelectedCountry(inputNumber.replace(/\D/g, ''), onlyCountries);
+    let formattedNumber = this.formatNumber(dialCode + inputNumber.replace(/\D/g, ''), selectedCountryGuess ?
+      selectedCountryGuess.format : null);
+    if (formattedNumber !== this.state.formattedNumber) {
+      this.setState({
+        formattedNumber: formattedNumber
+      })
+    }
+  }
+
   scrollTo(country, middle) {
     if(!country) return;
 
@@ -571,7 +584,7 @@ export default ReactPhoneInput;
 
 if (__DEV__) {
   const ReactDOM = require('react-dom');
-  
+
   ReactDOM.render(
     <ReactPhoneInput defaultCountry={'us'} preferredCountries={['us', 'de']} excludeCountries={'in'}/>,
     document.getElementById('content'));
