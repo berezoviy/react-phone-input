@@ -89,7 +89,7 @@ class ReactPhoneInput extends React.Component {
     };
   }
 
-  componentWillMount () {
+  componentDidMount () {
     const _countryData = this.props.lang === 'en' ? allEnCountries : allSvCountries;
     let inputNumber = this.props.value || '';
     let onlyCountries = this.excludeCountries(this.getOnlyCountries(this.props.onlyCountries), this.props.excludeCountries);
@@ -608,6 +608,7 @@ ReactPhoneInput.defaultProps = {
   excludeCountries: [],
   defaultCountry: allEnCountries[0].iso2,
   isValid: isNumberValid,
+  lang: "sv",
   flagsImagePath: './flags.png',
   onEnterKeyPress: function () {}
 };
