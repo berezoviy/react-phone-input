@@ -8,6 +8,7 @@ import React from 'react';
 import enCountryData from './country_data/en.js';
 import svCountryData from './country_data/sv.js';
 import classNames from 'classnames';
+import ReactDOM             from 'react-dom';
 
 let allEnCountries = enCountryData.allCountries;
 let allSvCountries = svCountryData.allCountries;
@@ -89,8 +90,9 @@ class ReactPhoneInput extends React.Component {
     };
   }
 
-  componentDidMount () {
+  componentWillMount () {
     const _countryData = this.props.lang === 'en' ? allEnCountries : allSvCountries;
+    console.log(_countryData);
     let inputNumber = this.props.value || '';
     let onlyCountries = this.excludeCountries(this.getOnlyCountries(this.props.onlyCountries), this.props.excludeCountries);
     let selectedCountryGuess = this.guessSelectedCountry(inputNumber.replace(/\D/g, ''), onlyCountries);
@@ -608,7 +610,6 @@ ReactPhoneInput.defaultProps = {
   excludeCountries: [],
   defaultCountry: allEnCountries[0].iso2,
   isValid: isNumberValid,
-  lang: "sv",
   flagsImagePath: './flags.png',
   onEnterKeyPress: function () {}
 };
@@ -631,6 +632,6 @@ if (__DEV__) {
   const ReactDOM = require('react-dom');
 
   ReactDOM.render(
-    <ReactPhoneInput defaultCountry={'us'} preferredCountries={['us', 'de']} excludeCountries={'in'}/>,
+    <ReactPhoneInput defaultCountry={'us'} preferredCountries={['us', 'de']} excludeCountries={'in'} lang="en"/>,
     document.getElementById('content'));
 }
