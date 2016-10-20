@@ -167,14 +167,22 @@ class ReactPhoneInput extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    const _countryData = nextProps.lang === 'en' ? allEnCountries : allSvCountries;
     let inputNumber = nextProps.value || '';
     let onlyCountries = this.excludeCountries(this.getOnlyCountries(nextProps.onlyCountries), nextProps.excludeCountries);
     let selectedCountryGuess = this.guessSelectedCountry(inputNumber.replace(/\D/g, ''), onlyCountries);
-    let selectedCountryGuessIndex = findIndex(this.state.countryData, selectedCountryGuess);
+    let selectedCountryGuessIndex = findIndex(_countryData, selectedCountryGuess);
     let dialCode = selectedCountryGuess && !startsWith(inputNumber.replace(/\D/g, ''), selectedCountryGuess.dialCode) ?
       selectedCountryGuess.dialCode : '';
     let formattedNumber = this.formatNumber(dialCode + inputNumber.replace(/\D/g, ''), selectedCountryGuess ?
       selectedCountryGuess.format : null);
+
+    this.setState({
+      language: nextProps.lang,
+      highlightCountryIndex: selectedCountryGuessIndex,
+      countryData: _countryData,
+      onlyCountries: onlyCountries
+    });
     if (formattedNumber !== this.state.formattedNumber) {
       this.setState({
         formattedNumber: formattedNumber
