@@ -73,6 +73,7 @@ class ReactPhoneInput extends React.Component {
     this.handleInputKeyDown = this.handleInputKeyDown.bind(this);
     this.getCountryDropDownList = this.getCountryDropDownList.bind(this);
 
+
     this.state = {
       preferredCountries: preferredCountries,
       selectedCountry: selectedCountryGuess,
@@ -106,14 +107,19 @@ class ReactPhoneInput extends React.Component {
     this.setState({
       language: this.props.lang,
       highlightCountryIndex: selectedCountryGuessIndex,
-      countryData: _countryData
+      countryData: _countryData,
+      onlyCountries: onlyCountries
     });
   }
 
 
   getOnlyCountries(onlyCountriesArray) {
     if (onlyCountriesArray.length === 0) {
-      return this.state.countryData;
+      if (this.state !== undefined) {
+        return this.props.lang === 'en' ? allEnCountries : allSvCountries;
+      } else {
+        return allEnCountries;
+      }
     } else {
       let selectedCountries = [];
       this.state.countryData.map(function(country) {
@@ -520,7 +526,6 @@ class ReactPhoneInput extends React.Component {
     });
 
     let inputFlagClasses = `flag ${this.state.selectedCountry.iso2}`;
-
     return (
       <div className="react-tel-input">
         <input
@@ -563,7 +568,7 @@ ReactPhoneInput.prototype._searchCountry = memoize(function(queryString){
 });
 
 ReactPhoneInput.prototype.guessSelectedCountry = memoize(function(inputNumber, onlyCountries) {
-  var secondBestGuess = find(this.state.countryData, {iso2: this.props.defaultCountry}) || onlyCountries[0];
+  var secondBestGuess = find(allEnCountries, {iso2: this.props.defaultCountry}) || onlyCountries[0];
   if(trim(inputNumber) !== '') {
 		var bestGuess = reduce(onlyCountries, function(selectedCountry, country) {
 			if(startsWith(inputNumber, country.dialCode)) {
@@ -595,6 +600,7 @@ ReactPhoneInput.defaultProps = {
   excludeCountries: [],
   defaultCountry: allEnCountries[0].iso2,
   isValid: isNumberValid,
+  lang: "en",
   flagsImagePath: './flags.png',
   onEnterKeyPress: function () {}
 };
