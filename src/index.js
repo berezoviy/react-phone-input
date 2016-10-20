@@ -92,9 +92,6 @@ class ReactPhoneInput extends React.Component {
 
   componentWillMount () {
     const _countryData = this.props.lang == 'en' ? allEnCountries : allSvCountries;
-    console.log(_countryData);
-    console.log(this.props.lang );
-    console.log(this.props.lang == 'en');
     let inputNumber = this.props.value || '';
     let onlyCountries = this.excludeCountries(this.getOnlyCountries(this.props.onlyCountries), this.props.excludeCountries);
     let selectedCountryGuess = this.guessSelectedCountry(inputNumber.replace(/\D/g, ''), onlyCountries);
@@ -120,7 +117,6 @@ class ReactPhoneInput extends React.Component {
   getOnlyCountries(onlyCountriesArray) {
     if (onlyCountriesArray.length === 0) {
       if (this.state !== undefined) {
-        console.log('getOnlyCountries: ' + this.props.lang);
         return this.props.lang == 'en' ? allEnCountries : allSvCountries;
       } else {
         return allEnCountries;
