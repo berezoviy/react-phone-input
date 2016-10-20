@@ -16,6 +16,13 @@ let isModernBrowser = Boolean(document.createElement('input').setSelectionRange)
 
 var style = require('./react-phone-input-style.less');
 
+function isNumberValid(inputNumber) {
+  let countries = enCountryData.allCountries;
+  return some(countries, function(country) {
+    return startsWith(inputNumber, country.dialCode) || startsWith(country.dialCode, inputNumber);
+  });
+}
+
 let keys = {
   UP: 38,
   DOWN: 40,
@@ -103,13 +110,6 @@ class ReactPhoneInput extends React.Component {
     });
   }
 
-
-  isNumberValid(inputNumber) {
-    let countries = this.state.countryData;
-    return some(countries, function(country) {
-      return startsWith(inputNumber, country.dialCode) || startsWith(country.dialCode, inputNumber);
-    });
-  }
 
   getOnlyCountries(onlyCountriesArray) {
     if (onlyCountriesArray.length === 0) {
