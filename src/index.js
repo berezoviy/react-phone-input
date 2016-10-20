@@ -608,7 +608,6 @@ ReactPhoneInput.defaultProps = {
   excludeCountries: [],
   defaultCountry: allEnCountries[0].iso2,
   isValid: isNumberValid,
-  lang: "en",
   flagsImagePath: './flags.png',
   onEnterKeyPress: function () {}
 };
