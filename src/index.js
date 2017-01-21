@@ -17,7 +17,6 @@ import React from 'react';
 import enCountryData from './country_data/en.js';
 import svCountryData from './country_data/sv.js';
 import classNames from 'classnames';
-import ReactDOM             from 'react-dom';
 
 let allEnCountries = enCountryData.allCountries;
 let allSvCountries = svCountryData.allCountries;
