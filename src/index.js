@@ -552,6 +552,7 @@ class ReactPhoneInput extends React.Component {
           onFocus={this.handleInputFocus}
           onKeyDown={this.handleInputKeyDown}
           value={this.state.formattedNumber}
+          autoComplete={this.props.autoComplete}
           ref="numberInput"
           id="phoneNumberInput"
           type="tel"
@@ -639,6 +640,10 @@ if (__DEV__) {
   const ReactDOM = require('react-dom');
 
   ReactDOM.render(
-    <ReactPhoneInput defaultCountry={'us'} preferredCountries={['us', 'de']} excludeCountries={'in'} lang="sv"/>,
+    <div>
+      <ReactPhoneInput defaultCountry={'us'} preferredCountries={['us', 'de']} excludeCountries={'in'} autoComplete="tel"/>
+      <input type="text" autoComplete="given-name"/>
+    </div>,
     document.getElementById('content'));
+
 }
