@@ -121,6 +121,22 @@ class ReactPhoneInput extends React.Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value !== this.props.value) {
+      let inputNumber nextProps.value;
+      let onlyCountries = this.excludeCountries(this.getOnlyCountries(this.props.onlyCountries), this.props.excludeCountries);
+      let selectedCountryGuess = this.guessSelectedCountry(inputNumber.replace(/\D/g, ''), onlyCountries);
+      let selectedCountryGuessIndex = findIndex(_countryData, selectedCountryGuess);
+      let dialCode = selectedCountryGuess && !startsWith(inputNumber.replace(/\D/g, ''), selectedCountryGuess.dialCode) ?
+        selectedCountryGuess.dialCode : '';
+      let formattedNumber = this.formatNumber(dialCode + inputNumber.replace(/\D/g, ''), selectedCountryGuess ?
+        selectedCountryGuess.format : null);
+      this.setState({
+        formattedNumber: formattedNumber
+      })
+    }
+  }
+
 
   getOnlyCountries(onlyCountriesArray) {
     if (onlyCountriesArray.length === 0) {
