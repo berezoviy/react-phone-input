@@ -26,7 +26,7 @@ var common = {
         loader: 'babel',
         include: path.resolve(ROOT_PATH, 'src')
       },
-      { test: /\.svg$/, loader: 'svg-loader',
+      { test: /\.svg$/, loader: 'svg-url-loader',
         exclude: /node_modules/
       },
       {
