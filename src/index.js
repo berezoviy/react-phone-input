@@ -16,6 +16,7 @@ import startsWith from 'lodash/startsWith';
 import React from 'react';
 import enCountryData from './country_data/en.js';
 import svCountryData from './country_data/sv.js';
+import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 
 let allEnCountries = enCountryData.allCountries;
