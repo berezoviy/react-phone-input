@@ -122,7 +122,7 @@ class ReactPhoneInput extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
+    const _countryData = this.props.lang == 'en' ? allEnCountries : allSvCountries;
     if (nextProps.value !== this.props.value) {
       let inputNumber = nextProps.value;
       let onlyCountries = this.excludeCountries(this.getOnlyCountries(this.props.onlyCountries), this.props.excludeCountries);
