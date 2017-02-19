@@ -16,7 +16,6 @@ import startsWith from 'lodash/startsWith';
 import React from 'react';
 import enCountryData from './country_data/en.js';
 import svCountryData from './country_data/sv.js';
-import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 
 let allEnCountries = enCountryData.allCountries;
@@ -196,7 +195,7 @@ class ReactPhoneInput extends React.Component {
   scrollTo(country, middle) {
     if(!country) return;
 
-    let container = ReactDOM.findDOMNode(this.refs.flagDropdownList);
+    let container = this.refs.flagDropdownList;
 
     if(!container) return;
 
@@ -263,7 +262,7 @@ class ReactPhoneInput extends React.Component {
 
   // put the cursor to the end of the input (usually after a focus event)
   _cursorToEnd() {
-    let input = ReactDOM.findDOMNode(this.refs.numberInput);
+    let input = this.refs.numberInput;
     input.focus();
     if (isModernBrowser) {
       let len = input.value.length;
@@ -272,7 +271,7 @@ class ReactPhoneInput extends React.Component {
   }
 
   getElement(index) {
-    return ReactDOM.findDOMNode(this.refs[`flag_no_${index}`]);
+    return this.refs[`flag_no_${index}`];
   }
 
   handleFlagDropdownClick() {
@@ -340,7 +339,7 @@ class ReactPhoneInput extends React.Component {
         }
 
         if(caretPosition > 0 && oldFormattedText.length >= formattedNumber.length) {
-          ReactDOM.findDOMNode(this.refs.numberInput).setSelectionRange(caretPosition, caretPosition);
+          this.refs.numberInput.setSelectionRange(caretPosition, caretPosition);
         }
       }
 
@@ -382,7 +381,7 @@ class ReactPhoneInput extends React.Component {
 
   handleInputFocus(evt) {
     // if the input is blank, insert dial code of the selected country
-    if(ReactDOM.findDOMNode(this.refs.numberInput).value === '+') {
+    if(this.refs.numberInput.value === '+') {
       this.setState(
 				{formattedNumber: '+' + this.state.selectedCountry.dialCode}, () => setTimeout(this._cursorToEnd, 10)
 			);
