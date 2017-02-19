@@ -93,7 +93,8 @@ if (TARGET === 'build') {
         commonjs2: 'react',
         commonjs: 'react',
         amd: 'react'
-      }
+      },
+      "react-dom": "ReactDOM"
     }],
     plugins: [
       new webpack.DefinePlugin({

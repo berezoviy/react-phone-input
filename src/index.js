@@ -123,6 +123,7 @@ class ReactPhoneInput extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
     if (nextProps.value !== this.props.value) {
       let inputNumber = nextProps.value;
       let onlyCountries = this.excludeCountries(this.getOnlyCountries(this.props.onlyCountries), this.props.excludeCountries);
@@ -190,30 +191,6 @@ class ReactPhoneInput extends React.Component {
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeydown);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const _countryData = nextProps.lang === 'en' ? allEnCountries : allSvCountries;
-    let inputNumber = nextProps.value || '';
-    let onlyCountries = this.excludeCountries(this.getOnlyCountries(nextProps.onlyCountries), nextProps.excludeCountries);
-    let selectedCountryGuess = this.guessSelectedCountry(inputNumber.replace(/\D/g, ''), onlyCountries);
-    let selectedCountryGuessIndex = findIndex(_countryData, selectedCountryGuess);
-    let dialCode = selectedCountryGuess && !startsWith(inputNumber.replace(/\D/g, ''), selectedCountryGuess.dialCode) ?
-      selectedCountryGuess.dialCode : '';
-    let formattedNumber = this.formatNumber(dialCode + inputNumber.replace(/\D/g, ''), selectedCountryGuess ?
-      selectedCountryGuess.format : null);
-
-    this.setState({
-      language: nextProps.lang,
-      highlightCountryIndex: selectedCountryGuessIndex,
-      countryData: _countryData,
-      onlyCountries: onlyCountries
-    });
-    if (formattedNumber !== this.state.formattedNumber) {
-      this.setState({
-        formattedNumber: formattedNumber
-      })
-    }
   }
 
   scrollTo(country, middle) {
