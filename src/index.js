@@ -99,7 +99,6 @@ class ReactPhoneInput extends React.Component {
   }
 
   componentWillMount () {
-    console.log('here must be mount');
     const _countryData = this.props.lang == 'en' ? allEnCountries : allSvCountries;
     let inputNumber = this.props.value || '';
     let onlyCountries = this.excludeCountries(this.getOnlyCountries(this.props.onlyCountries), this.props.excludeCountries);
@@ -123,10 +122,8 @@ class ReactPhoneInput extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
-    console.log('here must be next props');
     const _countryData = this.props.lang == 'en' ? allEnCountries : allSvCountries;
-    if (nextProps.value !== this.props.value) {
+    if (nextProps.value !== this.props.value && typeof nextProps.value === 'string') {
       let inputNumber = nextProps.value;
       let onlyCountries = this.excludeCountries(this.getOnlyCountries(this.props.onlyCountries), this.props.excludeCountries);
       let selectedCountryGuess = this.guessSelectedCountry(inputNumber.replace(/\D/g, ''), onlyCountries);
@@ -291,9 +288,6 @@ class ReactPhoneInput extends React.Component {
   }
 
   handleInput(event) {
-    console.log(event);
-    console.log('here must be event');
-
     let formattedNumber = '+', newSelectedCountry = this.state.selectedCountry,
 			freezeSelection = this.state.freezeSelection;
 
@@ -362,7 +356,6 @@ class ReactPhoneInput extends React.Component {
   }
 
   handleFlagItemClick(country) {
-    console.log('here must be flags');
     let currentSelectedCountry = this.state.selectedCountry;
     let nextSelectedCountry = find(this.state.onlyCountries, country);
 
@@ -531,7 +524,6 @@ class ReactPhoneInput extends React.Component {
       "arrow": true,
       "up": this.state.showDropDown
     });
-    console.log('here will be replace');
     let inputClasses = classNames({
       "form-control": true,
       "invalid-number": !this.props.isValid(this.state.formattedNumber.replace(/\D/g, ''))
